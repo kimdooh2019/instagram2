@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from .views import index
 from members.views import login_view
@@ -24,7 +24,7 @@ from members.views import login_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('members/', login_view, name='login'),
+    path('members/', include('members.urls')),
 ]
 
 urlpatterns += static(
