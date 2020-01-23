@@ -10,7 +10,7 @@ class Post(models.Model):
     heart = models.ManyToManyField(
         User,
         through='PostLike',
-        related_name='like_poost_set')
+        related_name='like_post_set')
     create = models.DateTimeField(auto_now_add=True)
 
     # comment = models.ManyToManyField('PostComment')
