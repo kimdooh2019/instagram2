@@ -18,8 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
+from .views import index
+from members.views import login_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index, name='index'),
+    path('members/', login_view, name='login'),
 ]
 
 urlpatterns += static(
