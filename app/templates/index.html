@@ -1,3 +1,14 @@
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+
 <h1>hellow</h1>
 <div>{{request.user}}</div>
 <div>{{request.user.is_authenticated }}</div>
+                        <a href="{% url 'members:signup' %}"></a>
+
+{% endblock %}

@@ -1,20 +1,38 @@
-<!doctype html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Instagram</h1>
+{% extends 'base.html' %}
+{% load static %}
 
-    <form action="" method="post">
-        {% csrf_token %}
-        <input name="username" type="text">
-        <input name="password" type="text">
-        <button type="submit">login</button>
-    </form>
-</body>
-</html>
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Instagram</h1>
+ <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Sign In</h5>
+            <form class="form-signin" action="" method="post">
+                {% csrf_token %}
+                <div class="form-label-group">
+                    <input name="username" type="text" class="form-control" placeholder="username" required autofocus>
+                    <label for="inputEmail">Email address</label>
+                </div>
+                <div class="form-label-group">
+                    <input name="password" type="password"  class="form-control" placeholder="Password" required>
+                    <label for="inputPassword">Password</label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">login</button>
+            </form>
+            <a href="{% url 'members:signup' %}">SIGN UP</a>
+
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+ </div>
+
+{% endblock %}

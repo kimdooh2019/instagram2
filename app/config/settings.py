@@ -17,7 +17,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_DIR = os.path.dirname(BASE_DIR)
 
 STATIC_URL = '/static/'
-
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS =[
+    STATIC_DIR,
+]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
