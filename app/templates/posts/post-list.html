@@ -1,4 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
+
     <div>post-list</div>
+    <div>{{reuqest.user}}</div>
+    <div>{{request.user.is_authenticated }}</div>
+    <div>
+        <a href="{% url 'members:logout' %}">로그아웃</a>
+    </div>
+    <div>
+        <a href="{% url 'posts:post-create' %}">포스트 추가</a>
+    </div>
+
+    {% for post in posts %}
+
+        <div>{{post.title}}</div>
+        <div>{{post.content}}</div>
+        <div>{{post.create}}</div>
+        <div>
+            {% for post_image in post.images_set.all %}
+                <div>{{ post_image.image.url}}</div>
+                <img src="{{ post_image.image.url }}" alt="" style="max-width: 200px;">
+            {% endfor %}
+        </div>
+        <form action="{% url 'posts:post-like' pk=post.pk %}" method="post">
+            {% csrf_token %}
+            {% if post in user.like_post_set.all %}
+                <button class="btn btn-primary" type="submit">좋아요 눌린 상태</button>
+            {% else %}
+                <button class="btn btn-primary" type="submit">좋아요 안눌린 상태</button>
+            {% endif %}
+        </form>
+        {% for comment in post.postcomment_set.all %}
+            <li>
+                <b>{{ comment.author.name }}</b>
+                <span>{{ comment.content }}</span>
+            </li>
+        {% endfor %}
+
+        <form action="{% url 'posts:post-comment' post_pk=post.pk%}" method="post">
+            {% csrf_token %}
+                {{comment_form}}
+            <button type="submit">작성</button>
+
+        </form>
+        <hr>
+
+    {% endfor %}
 {% endblock %}

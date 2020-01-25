@@ -1,4 +1,24 @@
-<h1>singup page check</h1>
-<div>이름</div>
-<div>비밀번호</div>
-<div>이메일</div>
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <form action="{% url 'members:signup' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <input type="text" name="username">
+        </div>
+        <div>
+            <input type="text" name="email">
+        </div>
+        <div>
+            <input type="text" name="password">
+        </div>
+        <div>
+            <input type="text" name="name">
+        </div>
+        <button type="submit">가입하기</button>
+
+    </form>
+    <div><a href="{% url 'members:login' %}">로그인</a> </div>
+{% endblock %}
