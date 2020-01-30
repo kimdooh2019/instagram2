@@ -15,15 +15,20 @@
             <h5 class="card-title text-center">Sign In</h5>
             <form class="form-signin" action="" method="post">
                 {% csrf_token %}
-                <div class="form-label-group">
-                    <input name="username" type="text" class="form-control" placeholder="username" required autofocus>
-                    <label for="inputEmail">Email address</label>
-                </div>
-                <div class="form-label-group">
-                    <input name="password" type="password"  class="form-control" placeholder="Password" required>
-                    <label for="inputPassword">Password</label>
-                </div>
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">login</button>
+                {% for field in form %}
+                    <div class="form-group">
+                      {{ field }}
+                    </div>
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    <ul class="list-unstyled text-danger">
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error|escape}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <a      href=""
+                        class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">login</a>
             </form>
             <a href="{% url 'members:signup' %}">SIGN UP</a>
 

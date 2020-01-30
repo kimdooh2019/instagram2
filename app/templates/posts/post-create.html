@@ -1,18 +1,17 @@
-<!doctype html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <form action="{% url 'posts:post-create' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">작성</button>
-    </form>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+
+    <div class="container pt-4">
+        <h1>새 포스트 작성</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{field}}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary btn-block">작성</button>
+        </form>
+    </div>
+{% endblock %}

@@ -5,9 +5,12 @@ from posts.forms import PostCreateForm, CommentCreateForm
 from posts.models import Post, PostLike
 
 
-def post_list_view(request):
+def post_list_view(request, tag=None):
     # posts = Post.objects.all()
-    posts = Post.objects.order_by('-pk')
+    if tag is None:
+        posts = Post.objects.order_by('-pk')
+    else:
+        posts = Post.objects.filter(tags__name__iexact=tag).order_by('-pk')
     comment_form = CommentCreateForm()
     context = {
         'posts': posts,

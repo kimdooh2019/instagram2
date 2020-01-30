@@ -20,12 +20,13 @@ from django.urls import path, include
 
 from .views import index
 from members.views import login_view
-
+from posts.views import post_list_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('members/', include('members.urls')),
     path('posts/', include('posts.urls')),
+    path('explore/tags/<str:tag>/', post_list_view, name='post-list-by-tag')
 ]
 
 urlpatterns += static(

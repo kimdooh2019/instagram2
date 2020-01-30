@@ -9,16 +9,33 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+# import boto3
+#
+# region_name='ap-northeast-2'
+# session = boto3.session.Session(
+#     profile_name='wps-secrets-manager',
+#     region_name=region_name,
+# )
+# client = session.client(
+#     service_name='secretsmanager',
+#     region_name=region_name,
+# )
 import os
+from django_secrets import SECRETS
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_DIR = os.path.dirname(BASE_DIR)
 
+
+# AWS_SECRETS_MANAGER_SECRETS_NAME = 'wps'
+# AWS_SECRETS_MANAGER_SECRETS_SECTION = 'instagram'
+# AWS_SECRETS_MANAGER_REGION_NAME = 'ap-northeast-2'
+# AWS_SECRETS_MANAGER_PROFILE = 'wps-secrets-manager'
+
 STATIC_URL = '/static/'
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS =[
+STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 # Quick-start development settings - unsuitable for production
@@ -30,7 +47,10 @@ SECRET_KEY = 'v^y%(_e*6z33n_iaa#sl2jf&k#u&+$vi^^2+rdfa95h&50!4r$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*',
+
+]
 AUTH_USER_MODEL = 'members.User'
 # Application definition
 MEDIA_ROOT = os.path.join(ROOT_DIR, '.media')
@@ -84,17 +104,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'instagram',
+        #데이터 베이스 안에 있는 유저(aws마스터 유저 아님)
+        'USER': 'kimdooh',
+        'PASSWORD': 'asdfghjkl',
+        'HOST': 'wps-lhy.cyn5jvwbgkmv.ap-northeast-2.rds.amazonaws.com',
+        'PORT': 5432,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -114,7 +137,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -128,7 +150,5 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-

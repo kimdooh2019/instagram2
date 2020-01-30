@@ -5,19 +5,28 @@
 
     <form action="{% url 'members:signup' %}" method="post">
         {% csrf_token %}
-        <div>
-            <input type="text" name="username">
-        </div>
-        <div>
-            <input type="text" name="email">
-        </div>
-        <div>
-            <input type="text" name="password">
-        </div>
-        <div>
-            <input type="text" name="name">
-        </div>
-        <button type="submit">가입하기</button>
+        {% for field in form %}
+            <div class="form-group">
+                {{ field }}
+            </div>
+            {% if field.errors %}
+                <ul class="list-unstyled text-danger text-left mt-0 pt-0" style="margin-top: -15px !important;">
+                    {% for error in field.errors %}
+                        <li>{{error}}</li>
+                    {% endfor %}
+
+                </ul>
+            {% endif %}
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+            <ul class="list-unstyled text-danger">
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <button type="submit" class="btn btn-primary btn-block">가입하기</button>
 
     </form>
     <div><a href="{% url 'members:login' %}">로그인</a> </div>

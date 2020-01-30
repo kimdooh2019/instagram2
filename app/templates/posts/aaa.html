@@ -34,8 +34,8 @@
 
         {% for comment in post.postcomment_set.all %}
             <li>
-                <b>{{ comment.author.name }} ({{comment.author.pk}})</b>
-                <span>{{ comment.content }} ({{comment.pk}})</span>
+                <b>{{ comment.author.name }}</b>
+                <span>{{ comment.content }}</span>
             </li>
         {% endfor %}
 

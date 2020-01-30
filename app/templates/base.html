@@ -9,9 +9,32 @@
     <title>Instagram</title>
     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.css' %}">
     {% block head %} {% endblock %}
+
 </head>
 <body>
     <div id="wrap">
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <a href="{% url 'members:signup' %}" class="navbar-brand">Instagram</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">{{ user.username }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'members:logout' %}" class="nav-link">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a href="{% url 'members:login' %}" class="nav-link">Login</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a href="{% url 'posts:post-create' %}" class="nav-link text-white btn btn-primary btn-sm">+ Add Post</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
         {% block content %}{% endblock %}
     </div>
 </body>

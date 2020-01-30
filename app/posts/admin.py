@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
-from posts.models import Post, PostComment, Images, PostLike
+from posts.models import Post, PostComment, Images, PostLike, Tag
 
 
 class ImagesInline(admin.TabularInline):
@@ -13,6 +12,7 @@ class PostCommentInline(admin.TabularInline):
     model = PostComment
     extra = 1
 
+
 #### admin customize document 보기
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -22,6 +22,7 @@ class PostAdmin(admin.ModelAdmin):
         ImagesInline,
         PostCommentInline,
     ]
+    readonly_fields = ('tags',)
 
 
 @admin.register(PostLike)
@@ -36,4 +37,9 @@ class ImagesAdmin(admin.ModelAdmin):
 
 @admin.register(PostComment)
 class PostCommentAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
     pass
